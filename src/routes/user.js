@@ -7,17 +7,17 @@ router
   .get("/", authJWT.authentication, userRoutes.getAll)
   .get("/getUser", authJWT.authentication, userRoutes.getUser)
   .post(
-    "/",
+    "/insertUser",
     authJWT.authentication,
     uploadImg.singleUpload,
-    userRoutes.register
+    userRoutes.setUser
   )
   .patch(
-    "/:id",
+    "/update",
     authJWT.authentication,
     uploadImg.singleUpload,
     userRoutes.updateUser
   )
-  .delete("/:id", authJWT.authentication, userRoutes.terminateUser);
+  .delete("/delete", authJWT.authentication, userRoutes.terminateUser);
 
 module.exports = router;

@@ -22,7 +22,7 @@ module.exports = {
       });
     });
   },
-  register: (body) => {
+  setUser: (body) => {
     return new Promise((resolve, reject) => {
       const { password } = body;
       bcrypt.hash(password, 10, function (err, hashPass) {

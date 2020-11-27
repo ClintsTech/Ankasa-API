@@ -14,9 +14,9 @@ module.exports = {
       .then((data) => response.success(data, res))
       .catch((err) => response.failed(err, res));
   },
-  register: (req, res) => {
+  setUser: (req, res) => {
     userModel
-      .register(req.body)
+      .setUser(req.body)
       .then((data) => response.success(data, res, "insert data success"))
       .catch((err) => response.failed(err, res));
   },
