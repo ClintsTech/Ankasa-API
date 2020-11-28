@@ -32,4 +32,53 @@ module.exports = {
       );
     });
   },
+  getFlight: function () {
+    return new Promise((resolve, reject) => {
+      db.query(`SELECT * FROM flights`, (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(new Error(err));
+        }
+      });
+    });
+  },
+  createFlight: function (setData) {
+    return new Promise((resolve, reject) => {
+      db.query("INSERT INTO flights SET ?", setData, (err, res) => {
+        if (!err) {
+          resolve(res);
+        } else {
+          reject(new Error(err));
+        }
+      });
+    });
+  },
+  updateFlight: function (id, setData) {
+    console.log(setData, id);
+    return new Promise((resolve, reject) => {
+      db.query(
+        `UPDATE flights SET ? WHERE id=${id}`,
+        setData,
+        (err, res) => {
+          if (!err) {
+            resolve(res);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  deleteFlight: function (id) {
+    return new Promise((resolve, reject) => {
+      db.query(`DELETE FROM flights WHERE id=${id}`, (err, res) => {
+        if (!err) {
+          resolve(res);
+        } else {
+          reject(new Error(err));
+        }
+      });
+    });
+  },
 };

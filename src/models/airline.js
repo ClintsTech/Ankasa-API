@@ -24,7 +24,7 @@ module.exports={
         })
     },
     updateAirlines: function(id,setData) {
-        console.log(setData, id)
+        // console.log(setData, id)
         return new Promise((resolve, reject) => {
             db.query(`UPDATE airlines SET ? WHERE id=${id}`, setData, (err, res) => {
                 if(!err) {
