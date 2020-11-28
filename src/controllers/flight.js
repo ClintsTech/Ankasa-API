@@ -4,7 +4,11 @@ module.exports = {
     searchFlight : async function ( req, res ) {
         try{
             const setData = req.body;
-            const result = await flightModel.searchFlight(setData)
+            const { limit, offset } = req.query
+            const limitNew = !isNaN(parseInt(limit)) ? parseInt(limit) : 5
+            const offsetNew = !isNaN(parseInt(offset)) ? parseInt(offset) : 1
+
+            const result = await flightModel.searchFlight(setData, limitNew, offsetNew)
             // console.log(result[0])
             if ( result[0] ){
                 response(res, 200, result);
