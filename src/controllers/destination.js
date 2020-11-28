@@ -1,5 +1,4 @@
 const destinationModels = require('../models/destination')
-const jwt = require('jsonwebtoken')
 const { response } = require('../helpers/')
 
 module.exports={

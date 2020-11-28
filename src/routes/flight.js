@@ -4,5 +4,8 @@ const flightController = require('../controllers/flight')
 router
     .post('/search-flight', flightController.searchFlight)
     .post('/:id', flightController.getFlightbyId)
-
+    .get('', flightController.getFlight) //get all flight
+    .post('', flightController.createFlight) //Create flight
+    .patch('', flightController.updateFlight) //Edit flight
+    .delete('', flightController.deleteFlight) //Delete flight
 module.exports = router
