@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require('dotenv').config()
 
 require('dotenv').config()
 
@@ -17,6 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", routeNavigator);
+
+app.use(express.static('public'))
 
 app.listen(8000 || process.env.PORT, () => {
   console.log(`Server running on PORT ${8000 || process.env.PORT}`);
