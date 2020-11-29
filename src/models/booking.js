@@ -46,5 +46,37 @@ module.exports={
             })
         })
     },
-
+    userBooking: function(setData){
+        return new Promise((resolve,reject)=>{
+            db.query(`INSERT INTO booking SET ?`,setData,(err, res)=>{
+                if(!err) {
+                    resolve(res)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    getSeat: function(id){
+        return new Promise((resolve,reject)=>{
+            db.query(`SELECT seat FROM flights where id=${id}`,(err, res)=>{
+                if(!err) {
+                    resolve(res)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    reduceSeat: function(id,seat){
+        return new Promise((resolve,reject)=>{
+            db.query(`UPDATE flights SET ? WHERE id=${id}`, seat, (err, res)=>{
+                if(!err) {
+                    resolve(res)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
 }
