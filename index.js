@@ -5,8 +5,8 @@ const cookieSession = require("cookie-session");
 const cors = require("cors");
 const auth2 = require("./src/controllers/auth2");
 
-// const passportController = require("./src/controllers/passport");
 require("./src/middlewares/passport");
+require("dotenv").config();
 
 const app = express();
 
@@ -52,6 +52,7 @@ app.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
+app.use(express.static("public"));
 
 app.listen(8000 || process.env.PORT, () => {
   console.log(`Server running on PORT ${8000 || process.env.PORT}`);
