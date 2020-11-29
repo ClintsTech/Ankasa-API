@@ -10,7 +10,7 @@ module.exports = {
   },
   getUser: (req, res) => {
     userModel
-      .getUser(req.query)
+      .getUser(req.token)
       .then((data) => response.success(data, res))
       .catch((err) => response.failed(err, res));
   },

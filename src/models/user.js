@@ -12,9 +12,9 @@ module.exports = {
       });
     });
   },
-  getUser: (id) => {
+  getUser: (token) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM users WHERE ?`, id, (err, res) => {
+      db.query(`SELECT * FROM users WHERE ?`, token.id, (err, res) => {
         if (!err) {
           resolve(res);
         }
@@ -43,6 +43,7 @@ module.exports = {
   updateUser: (id, body) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM users WHERE ?`, id, (err, result) => {
+        // console.log(result);
         if (err) {
           reject(err);
         } else {
