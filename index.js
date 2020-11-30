@@ -38,10 +38,10 @@ const connections = [];
 io.on('connection', async (socket)=> {
   // const id = socket.handshake.query.id
   const id = 1
-  console.log('user connect - ', socket.id)
+  // console.log('user connect - ', socket.id)
   connections.push(socket)
   socket.on('disconnect', function(){
-		console.log('disconnected - '+ socket.id);
+		// console.log('disconnected - '+ socket.id);
 	});
   // socket.join(itemId)
 

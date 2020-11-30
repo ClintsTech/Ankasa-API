@@ -24,6 +24,7 @@ module.exports = {
   },
 
   updateUser: function (id, setData) {
+    console.log(setData)
     return new Promise((resolve, reject) => {
       db.query(`UPDATE users SET ? WHERE id=${id}`, setData, (err, result) => {
         if (!err) {
