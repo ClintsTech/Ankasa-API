@@ -10,7 +10,7 @@ module.exports = {
   },
   getUser: (req, res) => {
     userModel
-      .getUser(req.token)
+      .getUser(req.token.id)
       .then((data) => response.success(data, res))
       .catch((err) => response.failed(err, res));
   },
@@ -22,7 +22,7 @@ module.exports = {
   },
   updateUser: (req, res) => {
     userModel
-      .updateUser(req.token.role, req.body)
+      .updateUser(req.token.id, req.body)
       .then((data) => response.success(data, res, "Update data success"))
       .catch((err) => response.failed(err, res));
   },

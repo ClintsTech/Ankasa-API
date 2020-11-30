@@ -4,20 +4,39 @@ const { response } = require("../helpers");
 module.exports = {
   Login: async function (req, res) {
     try {
-      res.send(req.user.emails[0].value);
+      let id = "";
+      let setID = "";
       const mail = req.user.emails[0].value;
       const setData = { email: mail, device_token: "" };
+      if (req.user.provider == "google") {
+        id = req.user.id;
+        setID = { google_id: id };
+      } else if (req.user.provider == "facebook") {
+        id = req.user.id;
+        setID = { facebook_id: id };
+      }
       let result = await authModels.checkUser(setData);
       if (!result[0]) {
         res.status(401).send({
           message: "Email Not Found",
         });
       }
-      const check_device = await authModels.checkDevice(setData.email);
-      if (check_device[0].device_token !== "") {
+      const isLogin = await authModels.isLogin(setData.email);
+      console.log(isLogin);
+      if (isLogin[0].device_token !== "") {
         res.status(403).send({
           message:
             "Your account already login. Please logout from your old device if you want login here",
+        });
+      } else if (isLogin[0].google_id !== null) {
+        res.status(403).send({
+          message:
+            "Your account google login. Please logout from your old device if you want login here",
+        });
+      } else if (isLogin[0].facebook_id !== null) {
+        res.status(403).send({
+          message:
+            "Your account facebook login. Please logout from your old device if you want login here",
         });
       } else {
         const { id, email, name, photo, phone, role, device_token } = result[0];
@@ -33,7 +52,7 @@ module.exports = {
           },
           process.env.SECRET_KEY
         );
-        await authModels.postDevice(token, setData.email);
+        await authModels.postId(setID, setData.email);
         let roles = "user";
         if (role == 6) {
           roles = "admin";

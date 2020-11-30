@@ -4,7 +4,7 @@ const uploadImg = require("../middlewares/multer");
 const authJWT = require("../middlewares/auth");
 
 router
-  .get("/", authJWT.authentication, userRoutes.getAll)
+  .get("/", userRoutes.getAll)
   .get("/getUser", authJWT.authentication, userRoutes.getUser)
   .post(
     "/insertUser",

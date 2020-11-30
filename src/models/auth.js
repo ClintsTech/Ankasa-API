@@ -70,4 +70,33 @@ module.exports = {
       );
     });
   },
+  isLogin: function (email) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `SELECT device_token,google_id,facebook_id FROM users WHERE email='${email}'`,
+        (err, res) => {
+          if (!err) {
+            resolve(res);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  postId: function (dataID, email) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `UPDATE users SET ? WHERE email='${email}'`,
+        dataID,
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
 };
