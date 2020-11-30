@@ -82,7 +82,7 @@ module.exports = {
   getBookingUser: function (id) {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT a.name, a.code, f.city_departure,f.departure, f.city_arrived, b.time, b.ordered_seat, b.isPaid, u.name, u.email 
+        `SELECT a.name as plane, a.code,a.terminal, a.class, f.city_departure,f.departure, f.city_arrived,f.gate, b.time, b.ordered_seat, b.isPaid, u.name, u.email 
             FROM airlines a 
             join flights f on a.id=f.plane 
             join booking b on f.id=b.flight_id 
