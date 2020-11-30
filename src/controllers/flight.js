@@ -25,12 +25,13 @@ module.exports = {
   },
   getFlightbyId: async function (req, res) {
     try {
-      const setData = req.body;
       const { id } = req.params;
       // console.log(id)
-      const result = await flightModel.getFlightbyId(setData, id);
+      const result = await flightModel.getFlightbyId(id);
       if (result[0]) {
-        response(res, 200, result);
+        const facilities = result[0].facilities.split(',')
+        result[0].facilities = facilities
+        response(res, 200, result[0]);
       } else {
         response(res, 400, { message: "Flight not found" });
       }
