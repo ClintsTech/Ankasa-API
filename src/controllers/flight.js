@@ -6,7 +6,7 @@ module.exports = {
       const setData = req.body;
       const { limit, offset } = req.query;
       const limitNew = !isNaN(parseInt(limit)) ? parseInt(limit) : 5;
-      const offsetNew = !isNaN(parseInt(offset)) ? parseInt(offset) : 1;
+      const offsetNew = !isNaN(parseInt(offset)) ? parseInt(offset) : 0;
 
       const result = await flightModel.searchFlight(
         setData,
