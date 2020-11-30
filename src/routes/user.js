@@ -4,20 +4,12 @@ const uploadImg = require("../middlewares/multer");
 const authJWT = require("../middlewares/auth");
 
 router
-  .get("/", userRoutes.getAll)
-  .get("/getUser", authJWT.authentication, userRoutes.getUser)
-  .post(
-    "/insertUser",
-    authJWT.authentication,
-    uploadImg.singleUpload,
-    userRoutes.setUser
-  )
+  .get("/all", authJWT.authentication, userRoutes.getAllUser)
+  .get("/", authJWT.authentication, userRoutes.getUserById)
   .patch(
     "/update",
     authJWT.authentication,
     uploadImg.singleUpload,
     userRoutes.updateUser
-  )
-  .delete("/delete", authJWT.authentication, userRoutes.terminateUser);
-
+  );
 module.exports = router;

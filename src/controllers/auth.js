@@ -7,6 +7,7 @@ module.exports = {
   postLogin: async function (req, res) {
     try {
       const setData = req.body;
+      console.log(setData)
       const result = await authModels.checkUser(setData);
       if (!result[0]) {
         res.status(401).send({
