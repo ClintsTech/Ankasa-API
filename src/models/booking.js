@@ -68,7 +68,7 @@ module.exports={
             })
         })
     },
-    reduceSeat: function(id,seat){
+    addSeat: function(id,seat){
         return new Promise((resolve,reject)=>{
             db.query(`UPDATE flights SET ? WHERE id=${id}`, seat, (err, res)=>{
                 if(!err) {
@@ -79,4 +79,9 @@ module.exports={
             })
         })
     },
+    getBookingUser:function(id){
+        return new Promise((resolve, reject)=>{
+            db.query(`SELECT b.time , b.isPaid, u.name, u.email FROM booking b join users u on b.user_id=u.id where u.id=${id}`)
+        })
+    }
 }

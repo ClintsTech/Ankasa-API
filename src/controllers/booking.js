@@ -46,29 +46,48 @@ module.exports = {
       const flightSeat = await bookingModels.getSeat(flight_id); //get seat value from flights
       // console.log(flightSeat[0].seat)
       if (flightSeat[0]) {
-        const availableSeat = flightSeat[0].seat;
-        console.log(availableSeat - parseInt(seat));
-        const setData = { user_id: id, ...req.body };
-        console.log(setData);
+        
+        const reservedSeat = flightSeat[0].seat;
+        const orderedSeat = generateSeat(reservedSeat, parseInt(seat))
+        
+        // console.log(reservedSeat,seat,orderedSeat)
+        
+        const setData = { user_id: id, ordered_seat: orderedSeat, ...req.body };
         delete setData.seat;
-        const reducingSeat = await bookingModels.reduceSeat(flight_id, {
-          seat: availableSeat - parseInt(seat),
+        
+        // console.log(setData);
+
+        const addSeat = await bookingModels.addSeat(flight_id, {
+          seat: reservedSeat + parseInt(seat),
         });
-        console.log(reducingSeat);
-        if (reducingSeat.affectedRows > 0) {
+        // console.log(addSeat);
+        
+        if (addSeat.affectedRows > 0) {
           const result = await bookingModels.userBooking(setData);
           response(res, 200, {
             result: result,
             message: "Success Add booking",
           });
         } else {
-          response(res, 400, { message: "Can not reduce seat value" });
+          response(res, 400, { message: "Cannot add seat value" });
         }
       } else {
-        response(res, 404, { message: "Can not get seat data" });
+        response(res, 404, { message: "Cannot get seat data" });
       }
     } catch (error) {
       response(res, 500, { message: "Failed Add booking" });
     }
   },
 };
+
+generateSeat=(reservedSeat,seat)=>{
+  let orderedSeat=''
+  for(i= reservedSeat+1; i<= reservedSeat+seat; i++){
+    if(i!=reservedSeat+seat){
+      orderedSeat+=(i+',')
+    }else{
+      orderedSeat+=i
+    }
+  }
+  return orderedSeat.trim()
+}
