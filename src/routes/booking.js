@@ -14,8 +14,14 @@ router
     authentication.authentication,
     authentication.authorization,
     bookingController.userBooking
-  ); 
+  )
 
   //get Booking By Specific User
-  
+  .get(
+    "/user",
+    authentication.authentication,
+    authentication.authorization,
+    bookingController.getBookingUser
+  );
+
 module.exports = router;
