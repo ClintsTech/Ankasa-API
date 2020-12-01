@@ -16,18 +16,7 @@ module.exports = {
       }
       let check = true;
       if (result[0].role != 6) {
-        const check_device = await authModels.checkDevice(setData.email);
-        if (
-          setData.device_token !== check_device[0].device_token &&
-          check_device[0].device_token !== ""
-        ) {
-          res.status(403).send({
-            message:
-              "Your account already login. Please logout from your old device if you want login here",
-          });
-        } else if (check_device[0].device_token === "") {
-          await authModels.postDevice(setData.device_token, setData.email);
-        }
+        
         check = bcrypt.compareSync(setData.password, result[0].password);
       }
       if (check) {
@@ -59,6 +48,7 @@ module.exports = {
         });
       }
     } catch (error) {
+      console.log(error)
       response(res, 500, { message: error.message });
     }
   },
