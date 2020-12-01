@@ -38,9 +38,10 @@ module.exports = {
     try {
       const { id } = req.token;
       const setData = req.body;
-      if (req.file) {
+
+      if(req.file) {
         setData.photo = req.file.filename;
-      }else{
+      } else {
         delete setData.photo
       }
 
