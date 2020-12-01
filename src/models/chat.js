@@ -19,7 +19,7 @@ module.exports = {
   getLastMessage: function () {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT u.photo, u.name, c.message, DATE_FORMAT(c.sending_time, '%H:%i') time FROM users u LEFT JOIN ( SELECT * FROM chat ORDER BY id ASC) c ON u.id = c.id_from OR u.id =c.id_to WHERE u.id != 1 GROUP BY name`,
+        `SELECT u.photo, u.name, c.message, DATE_FORMAT(c.sending_time, '%H:%i') time FROM users u LEFT JOIN ( SELECT * FROM chat ORDER BY id ASC) c ON u.id = c.id_from OR u.id =c.id_to GROUP BY name`,
         (err, result) => {
           if (!err) {
             resolve(result);

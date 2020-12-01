@@ -53,7 +53,7 @@ module.exports = {
   getNotificationId: function (id) {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT id, tittle,description, isRead from notification WHERE id=${id}`,
+        `SELECT id, tittle,description, isRead from notification WHERE user_id=${id}`,
         (err, res) => {
           if (!err) {
             resolve(res);
@@ -67,7 +67,7 @@ module.exports = {
   notificationOpened: function (id) {
     return new Promise((resolve, reject) => {
       db.query(
-        `Update notification SET isRead= true WHERE id=${id}`,
+        `Update notification SET isRead=true WHERE id=${id}`,
         (err, res) => {
           if (!err) {
             resolve(res);

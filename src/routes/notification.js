@@ -5,7 +5,7 @@ router
   .get("/", notificationController.getNotification) //get all notification
   .post("/", notificationController.createNotification) //Create notification
   .patch("/", notificationController.updateNotification) //Edit notification
-  .delete("/", notificationController.deleteNotification) //Delete notification
+  .delete("/", authentication.authentication, notificationController.deleteNotification) //Delete notification
   .get(
     "/byId",
     authentication.authentication,

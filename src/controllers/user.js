@@ -37,7 +37,7 @@ module.exports = {
 
   updateUser: async function (req, res) {
     try {
-      const { id } = req.token;
+      const { id, email } = req.token;
       const setData = req.body;
 
       if(req.file) {
@@ -46,7 +46,7 @@ module.exports = {
         delete setData.photo
       }
 
-      if(setData.email) {
+      if(setData.email !== email) {
         const check = await checkUser(setData)
 
         if(check[0]) {

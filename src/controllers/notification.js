@@ -37,7 +37,7 @@ module.exports = {
   },
   deleteNotification: async function (req, res) {
     try {
-      const { id } = req.query;
+      const { id } = req.token;
       const result = await notificationModels.deleteNotification(id);
       response(res, 200, {
         result: result,

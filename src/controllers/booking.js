@@ -1,5 +1,6 @@
 const bookingModels = require("../models/booking");
 const { response } = require("../helpers/");
+const { createNotification } = require('../models/notification')
 
 module.exports = {
   getBooking: async function (req, res) {
@@ -67,6 +68,11 @@ module.exports = {
             result: result,
             message: "Success Add booking",
           });
+          await createNotification({
+            user_id: id,
+            tittle: 'Ticket booked',
+            description: 'Congratulations you made a booking flight'
+          })
         } else {
           response(res, 400, { message: "Cannot add seat value" });
         }
