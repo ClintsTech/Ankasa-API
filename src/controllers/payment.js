@@ -31,7 +31,7 @@ module.exports = {
         phone: phone,
       },
     };
-    snap.createTransaction(parameter).then((transaction) => {
+    snap.createTransaction(parameter).then(async(transaction) => {
       let transactionToken = transaction.token;
       if (transactionToken) {
         response(res, 200, transaction);
