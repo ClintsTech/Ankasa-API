@@ -1,6 +1,7 @@
 const userModel = require("../models/user");
 const { response } = require("../helpers");
 const bcrypt = require("bcrypt");
+const { checkUser } = require('../models/auth')
 
 module.exports = {
   getAllUser: async function (req, res) {
@@ -43,6 +44,14 @@ module.exports = {
         setData.photo = req.file.filename;
       } else {
         delete setData.photo
+      }
+
+      if(setData.email) {
+        const check = await checkUser(setData)
+
+        if(check[0]) {
+          return response(res, 403, { message: 'Email already exist'})
+        }
       }
 
       if (setData.currPassword && setData.password) {

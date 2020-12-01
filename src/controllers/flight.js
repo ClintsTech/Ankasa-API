@@ -15,7 +15,15 @@ module.exports = {
       );
       // console.log(result[0])
       if (result[0]) {
-        response(res, 200, result);
+        const newData = result.map(item => {
+          const facilities = item.facilities.split(',')
+
+          return {
+            ...item,
+            facilities
+          }
+        })
+        response(res, 200, newData);
       } else {
         response(res, 400, { message: "Flight not found" });
       }
