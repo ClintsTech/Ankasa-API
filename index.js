@@ -30,6 +30,16 @@ app.use(cors());
 //   });
 // });
 
+// notification
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./src/services/ankasa-8dc57-firebase-adminsdk-4in6l-48a27bdb6f.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://ankasa-8dc57.firebaseio.com"
+});
+
 
 //socket
 const server = require('http').createServer(app);
