@@ -8,6 +8,7 @@ const bookingRoutes = require("./routes/booking");
 const reviewRoutes = require("./routes/review");
 const chatRoutes = require("./routes/chat");
 const paymentRoutes = require("./routes/payment");
+const notificationRoutes = require("./routes/notification");
 
 router.use("/auth", authRoutes);
 router.use("/destination", destinationRoutes);
@@ -18,5 +19,6 @@ router.use("/booking", bookingRoutes);
 router.use("/review", reviewRoutes);
 router.use("/chat", chatRoutes);
 router.use("/payment", paymentRoutes);
+router.use("/notification", notificationRoutes);
 
 module.exports = router;
