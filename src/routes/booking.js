@@ -12,7 +12,6 @@ router
   .post(
     "/add",
     authentication.authentication,
-    authentication.authorization,
     bookingController.userBooking
   )
 
@@ -20,8 +19,12 @@ router
   .get(
     "/user",
     authentication.authentication,
-    authentication.authorization,
     bookingController.getBookingUser
-  );
+  )
 
+  .get(
+    "/specific/:id",
+    authentication.authentication,
+    bookingController.getBookingId
+  ); //get Booking by Id
 module.exports = router;

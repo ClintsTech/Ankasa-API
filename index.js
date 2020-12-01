@@ -11,7 +11,7 @@ require("./src/middlewares/passport");
 // require("dotenv").config();
 
 const app = express();
-require('dotenv').config()
+require("dotenv").config();
 
 const routeNavigator = require("./src");
 
@@ -42,47 +42,47 @@ admin.initializeApp({
 
 
 //socket
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 const connections = [];
-io.on('connection', async (socket)=> {
+io.on("connection", async (socket) => {
   // const id = socket.handshake.query.id
-  const id = 1
+  const id = 1;
   // console.log('user connect - ', socket.id)
-  connections.push(socket)
-  socket.on('disconnect', function(){
-		// console.log('disconnected - '+ socket.id);
-	});
+  connections.push(socket);
+  socket.on("disconnect", function () {
+    // console.log('disconnected - '+ socket.id);
+  });
   // socket.join(itemId)
 
-  try{
+  try {
     const result = await chatModel.getAllMessage(id);
-    if (result != 0){
+    if (result != 0) {
       // console.log(result)
-      io.emit('refresh-chat',result)
-    }else{
-      console.log('Message not found')
+      io.emit("refresh-chat", result);
+    } else {
+      console.log("Message not found");
     }
-    
+
     // response(res, 200, { result: result, message: "Success get all message" });
-  }catch(e){
-    console.log(e)
+  } catch (e) {
+    console.log(e);
     // response(res, 500, { message: "Post message failed" });
   }
 
-  socket.on('postMessage', async (addData) => {
-      // console.log(message)
-      // socket.broadcast.to(itemId).emit('refresh-chat', chat)
-        try{
-          // console.log(addData)
-          const result = await chatModel.postMessage(addData);
-          io.emit('successPost',addData)
-          // response(res, 200, { result: result, message: "Success post message" });
-        }catch(e){
-          // response(res, 500, { message: "Post message failed" });
-          console.log(e)
-        }
-  })
+  socket.on("postMessage", async (addData) => {
+    // console.log(message)
+    // socket.broadcast.to(itemId).emit('refresh-chat', chat)
+    try {
+      // console.log(addData)
+      const result = await chatModel.postMessage(addData);
+      io.emit("successPost", addData);
+      // response(res, 200, { result: result, message: "Success post message" });
+    } catch (e) {
+      // response(res, 500, { message: "Post message failed" });
+      console.log(e);
+    }
+  });
   // socket.on('getAllMessage', async (id) => {
   //     // console.log(message)
   //     // socket.broadcast.to(itemId).emit('refresh-chat', chat)
@@ -94,7 +94,7 @@ io.on('connection', async (socket)=> {
   //         response(res, 500, { message: "Post message failed" });
   //       }
   // })
-})
+});
 
 // server.listen(4444);
 
@@ -137,4 +137,4 @@ app.use(express.static("public"));
 
 server.listen(8000 || process.env.PORT, () => {
   console.log(`Server running on PORT ${8000 || process.env.PORT}`);
-})
+});

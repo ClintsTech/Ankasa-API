@@ -98,4 +98,23 @@ module.exports = {
       );
     });
   },
+  getBookingId: function (id, bookId) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `SELECT a.code, a.class, a.terminal, a.name AS plane, a.image, f.gate, f.departure, f.city_departure, f.city_arrived,b.id, b.fee, b.ordered_seat, u.name 
+      FROM airlines a 
+      JOIN flights f on a.id=f.plane 
+      JOIN booking b on f.id=b.flight_id 
+      JOIN users u on b.user_id=u.id 
+      WHERE b.id=${bookId} AND u.id=${id}`,
+        (err, res) => {
+          if (!err) {
+            resolve(res);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
 };

@@ -86,6 +86,17 @@ module.exports = {
       response(res, 500, { message: "Failed Get user booking" });
     }
   },
+  getBookingId: async function (req, res) {
+    try {
+      const { id } = req.token;
+      // console.log(req.params.id)
+      const bookId = req.params.id;
+      const result = await bookingModels.getBookingId(id,bookId);
+      response(res, 200, { data: result, message: "Success Get booking by id" });
+    } catch (error) {
+      response(res, 500, { message: "Failed Get booking by id" });
+    }
+  },
 };
 
 generateSeat = (reservedSeat, seat) => {
