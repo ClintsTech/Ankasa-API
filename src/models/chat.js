@@ -19,18 +19,7 @@ module.exports = {
   getLastMessage: function () {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT m.id_from, s.photoSender ,s.sender, m.id_to, s.photoReceiver, s.receiver, DATE_FORMAT(m.sending_time, '%H:%i') time, m.message FROM 
-            (SELECT c.id_from, c.message, u1.name as sender,u1.photo AS photoSender, u2.name as receiver,u2.photo AS photoReceiver, c.id_to, MAX(c.sending_time) AS time
-                        FROM chat c
-                        JOIN users u1
-                        ON c.id_from = u1.id
-                        JOIN users u2
-                        ON c.id_to = u2.id
-                        GROUP BY c.id_from, c.id_to) s
-            JOIN chat m
-            ON m.id_from = s.id_from
-            AND m.id_to = s.id_to
-            AND m.sending_time = s.time;`,
+        `SELECT u.photo, u.name, c.message, DATE_FORMAT(c.sending_time, '%H:%i') time FROM users u LEFT JOIN ( SELECT * FROM chat ORDER BY id ASC) c ON u.id = c.id_from OR u.id =c.id_to WHERE u.id != 1 GROUP BY name`,
         (err, result) => {
           if (!err) {
             resolve(result);
