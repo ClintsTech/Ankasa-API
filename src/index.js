@@ -7,6 +7,7 @@ const airlineRoutes = require("./routes/airline");
 const bookingRoutes = require("./routes/booking");
 const reviewRoutes = require("./routes/review");
 const paymentRoutes = require("./routes/payment");
+const notificationRoutes = require("./routes/notification");
 
 router.use("/auth", authRoutes);
 router.use("/destination", destinationRoutes);
@@ -16,5 +17,6 @@ router.use("/airline", airlineRoutes);
 router.use("/booking", bookingRoutes);
 router.use("/review", reviewRoutes);
 router.use("/payment", paymentRoutes);
+router.use("/notification", notificationRoutes);
 
 module.exports = router;
