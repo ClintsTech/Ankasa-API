@@ -24,20 +24,23 @@ module.exports = {
       const isLogin = await authModels.isLogin(setData.email);
       console.log(isLogin);
       if (isLogin[0].device_token !== "") {
-        res.status(403).send({
-          message:
-            "Your account already login. Please logout from your old device if you want login here",
-        });
+        res.redirect("mankasa://login");
+        // res.status(403).send({
+        //   message:
+        //     "Your account already login. Please logout from your old device if you want login here",
+        // });
       } else if (isLogin[0].google_id !== null) {
-        res.status(403).send({
-          message:
-            "Your account google login. Please logout from your old device if you want login here",
-        });
+        res.redirect("mankasa://login");
+        // res.status(403).send({
+        //   message:
+        //     "Your account google login. Please logout from your old device if you want login here",
+        // });
       } else if (isLogin[0].facebook_id !== null) {
-        res.status(403).send({
-          message:
-            "Your account facebook login. Please logout from your old device if you want login here",
-        });
+        res.redirect("mankasa://login");
+        // res.status(403).send({
+        //   message:
+        //     "Your account facebook login. Please logout from your old device if you want login here",
+        // });
       } else {
         const { id, email, name, photo, phone, role, device_token } = result[0];
         const token = jwt.sign(
@@ -62,9 +65,11 @@ module.exports = {
           token,
           roles,
         });
+        res.redirect("mankasa://login");
       }
     } catch (error) {
       response(res, 500, { message: error.message });
+      res.redirect("ankasa://login");
     }
   },
 };

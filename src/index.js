@@ -6,6 +6,7 @@ const flightRoutes = require("./routes/flight");
 const airlineRoutes = require("./routes/airline");
 const bookingRoutes = require("./routes/booking");
 const reviewRoutes = require("./routes/review");
+const paymentRoutes = require("./routes/payment");
 
 router.use("/auth", authRoutes);
 router.use("/destination", destinationRoutes);
@@ -14,5 +15,6 @@ router.use("/flight", flightRoutes);
 router.use("/airline", airlineRoutes);
 router.use("/booking", bookingRoutes);
 router.use("/review", reviewRoutes);
+router.use("/payment", paymentRoutes);
 
 module.exports = router;
