@@ -44,13 +44,13 @@ admin.initializeApp({
 //socket
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const connections = [];
+// const connections = [];
 io.on('connection', async (socket)=> {
   const id = socket.handshake.query.id
   // const id = 1
   // console.log('user connect - ', socket.id)
   // console.log(id)
-  connections.push(socket)
+  // connections.push(socket)
   socket.on('disconnect', function(){
 		// console.log('disconnected - '+ socket.id);
 	});

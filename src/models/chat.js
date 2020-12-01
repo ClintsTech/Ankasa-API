@@ -19,7 +19,7 @@ module.exports = {
   getLastMessage: function () {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT u.photo, u.name, c.message, DATE_FORMAT(c.sending_time, '%H:%i') time FROM users u LEFT JOIN ( SELECT * FROM chat ORDER BY id ASC) c ON u.id = c.id_from OR u.id =c.id_to GROUP BY name`,
+        `SELECT u.id, u.photo, u.name, c.message, DATE_FORMAT(c.sending_time, '%H:%i') time FROM users u LEFT JOIN ( SELECT * FROM chat ORDER BY id ASC) c ON u.id = c.id_from OR u.id =c.id_to WHERE u.id != 1 GROUP BY name`,
         (err, result) => {
           if (!err) {
             resolve(result);
@@ -31,6 +31,7 @@ module.exports = {
     });
   },
   postMessage: function (setData) {
+    console.log(setData )
     return new Promise((resolve, reject) => {
       db.query(`INSERT INTO chat SET ?`, setData, (err, res) => {
         if (!err) {
