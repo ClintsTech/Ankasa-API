@@ -8,10 +8,20 @@ router
   .patch("/", bookingController.updateBooking) //Edit Booking
   .delete("/", bookingController.deleteBooking) //Delete Booking
 
+  //Create Booking By User
   .post(
     "/add",
     authentication.authentication,
     authentication.authorization,
     bookingController.userBooking
-  ); //Create Booking By User
+  )
+
+  //get Booking By Specific User
+  .get(
+    "/user",
+    authentication.authentication,
+    authentication.authorization,
+    bookingController.getBookingUser
+  );
+
 module.exports = router;

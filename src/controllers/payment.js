@@ -28,9 +28,6 @@ module.exports = {
         first_name: name,
         email: email,
         phone: phone,
-        // first_name: "budi",
-        // email: "budi.pra@example.com",
-        // phone: "08111222333",
       },
     };
     snap.createTransaction(parameter).then((transaction) => {
