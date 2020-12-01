@@ -30,18 +30,30 @@ app.use(cors());
 //   });
 // });
 
+// notification
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./src/services/ankasa-8dc57-firebase-adminsdk-4in6l-48a27bdb6f.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://ankasa-8dc57.firebaseio.com"
+});
+
+
 //socket
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const connections = [];
-io.on("connection", async (socket) => {
-  // const id = socket.handshake.query.id
-  const id = 1;
+io.on('connection', async (socket)=> {
+  const id = socket.handshake.query.id
+  // const id = 1
   // console.log('user connect - ', socket.id)
-  connections.push(socket);
-  socket.on("disconnect", function () {
-    // console.log('disconnected - '+ socket.id);
-  });
+  // console.log(id)
+  connections.push(socket)
+  socket.on('disconnect', function(){
+		// console.log('disconnected - '+ socket.id);
+	});
   // socket.join(itemId)
 
   try {
