@@ -4,11 +4,12 @@ const midtransClient = require("midtrans-client");
 const { DateTime } = require("luxon");
 require("dotenv/config");
 const { response } = require("../helpers");
+const { payBooking } = require('../models/booking')
 
 module.exports = {
   pay: async function (req, res) {
     const { id, name, email, phone } = req.token;
-    const amount = req.body.amount;
+    const { amount, book_id} = req.body;
 
     let snap = new midtransClient.Snap({
       isProduction: false,
@@ -34,6 +35,7 @@ module.exports = {
       let transactionToken = transaction.token;
       if (transactionToken) {
         response(res, 200, transaction);
+        await payBooking(book_id)
       } else {
         response(res, 400, { message: "payment failed" });
       }

@@ -117,4 +117,15 @@ module.exports = {
       );
     });
   },
+  payBooking: function(id) {
+    return new Promise((resolve, reject) => {
+      db.query(`UPDATE booking SET isPaid=true WHERE id=${id}`, (err, res) => {
+        if(!err) {
+          resolve(res)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  }
 };
