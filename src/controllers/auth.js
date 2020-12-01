@@ -16,7 +16,7 @@ module.exports = {
       }
       let check = true;
       if (result[0].role != 6) {
-        
+        await authModels.postDevice(setData.device_token, setData.email)
         check = bcrypt.compareSync(setData.password, result[0].password);
       }
       if (check) {

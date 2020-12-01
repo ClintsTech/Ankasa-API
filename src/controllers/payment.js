@@ -5,10 +5,12 @@ const { DateTime } = require("luxon");
 require("dotenv/config");
 const { response } = require("../helpers");
 const { payBooking } = require('../models/booking')
+const admin = require('firebase-admin')
+const { createNotification } = require('../models/notification')
 
 module.exports = {
   pay: async function (req, res) {
-    const { id, name, email, phone } = req.token;
+    const { id, name, email, phone, device_token } = req.token;
     const { amount, book_id} = req.body;
 
     let snap = new midtransClient.Snap({
@@ -36,6 +38,17 @@ module.exports = {
       if (transactionToken) {
         response(res, 200, transaction);
         await payBooking(book_id)
+        admin.messaging().sendToDevice(device_token, {
+          notification: {
+            title: 'Payment Success',
+            description: `Order has been successfull with booking id ${book_id}`
+          }
+        })
+        await createNotification({
+          tittle: 'Payment Success',
+          description: `Order has been successfull with booking id ${book_id}`,
+          user_id: id
+        })
       } else {
         response(res, 400, { message: "payment failed" });
       }
