@@ -47,7 +47,8 @@ module.exports = {
         await createNotification({
           tittle: 'Payment Success',
           description: `Order has been successfull with booking id ${book_id}`,
-          user_id: id
+          user_id: id,
+          isRead: false
         })
       } else {
         response(res, 400, { message: "payment failed" });
