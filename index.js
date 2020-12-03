@@ -44,57 +44,28 @@ admin.initializeApp({
 //socket
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-// const connections = [];
 io.on('connection', async (socket)=> {
   const id = socket.handshake.query.id
-  // const id = 1
-  // console.log('user connect - ', socket.id)
-  // console.log(id)
-  // connections.push(socket)
-  socket.on('disconnect', function(){
-		// console.log('disconnected - '+ socket.id);
-	});
-  // socket.join(itemId)
-
-  try {
-    const result = await chatModel.getAllMessage(id);
-    if (result != 0) {
-      // console.log(result)
+  console.log('user connect - ', id)
+  socket.join(id)
+    try{
+      const result = await chatModel.getAllMessage(id);
       io.emit("refresh-chat", result);
-    } else {
-      console.log("Message not found");
-    }
-
-    // response(res, 200, { result: result, message: "Success get all message" });
-  } catch (e) {
-    console.log(e);
-    // response(res, 500, { message: "Post message failed" });
-  }
-
-  socket.on("postMessage", async (addData) => {
-    // console.log(message)
-    // socket.broadcast.to(itemId).emit('refresh-chat', chat)
-    try {
-      // console.log(addData)
-      const result = await chatModel.postMessage(addData);
-      io.emit("successPost", addData);
-      // response(res, 200, { result: result, message: "Success post message" });
-    } catch (e) {
-      // response(res, 500, { message: "Post message failed" });
+      // console.log(result);
+    }catch(e){
       console.log(e);
     }
-  });
-  // socket.on('getAllMessage', async (id) => {
-  //     // console.log(message)
-  //     // socket.broadcast.to(itemId).emit('refresh-chat', chat)
-  //       try{
-  //         const result = await chatModel.getAllMessage(id);
-  //         io.emit('refresh-chat',result)
-  //         response(res, 200, { result: result, message: "Success get all message" });
-  //       }catch(e){
-  //         response(res, 500, { message: "Post message failed" });
-  //       }
-  // })
+
+  socket.on("postMessage", async (data) =>{
+    try{
+      const result = await chatModel.postMessage(data)
+      console.log(result)
+    }catch(e){
+      console.log(e)
+    }
+  })
+
+ 
 });
 
 // server.listen(4444);
